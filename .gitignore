@@ -1,0 +1,5 @@
+# Ignorar tudo dentro de htdocs
+htdocs/*
+
+# Mas não ignorar o index.php
+!htdocs/index.php

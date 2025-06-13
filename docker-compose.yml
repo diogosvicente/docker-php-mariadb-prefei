@@ -11,6 +11,7 @@ services:
       - ./php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
     depends_on:
       - db
+    command: bash -c "chown -R www-data:www-data /var/www/html/writable && apache2-foreground"
 
   db:
     image: mariadb:10.5
