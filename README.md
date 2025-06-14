@@ -19,7 +19,9 @@ docker-prefei-php/
 │   └── custom.ini       # php.ini personalizado
 ├── htdocs/              # Pasta de projetos PHP (CodeIgniter, Laravel, etc.)
 │   └── projeto1/        # Exemplo de um projeto
-└── db_data/             # Volume Docker para persistência do banco
+├── db_data/             # Volume Docker para persistência do banco
+├── .gitignore           # Arquivos a serem ignorados pelo Git
+└── README.md            # Documentação do projeto
 ```
 
 ## Serviços
