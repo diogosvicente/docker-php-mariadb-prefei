@@ -65,7 +65,7 @@ docker-prefei-php/
 
    ```bash
    git clone <URL_DO_REPO>
-   cd docker-prefei-php
+   cd docker-php-mariadb-prefei
    ```
 
 2. **Construir e iniciar**
