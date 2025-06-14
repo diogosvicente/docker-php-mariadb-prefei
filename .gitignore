@@ -4,9 +4,6 @@ htdocs/*
 !htdocs/style.css
 !htdocs/.gitkeep
 
-# Ignorar volumes de banco
-db_data/
-
 # Ignorar arquivos de log
 *.log
 
