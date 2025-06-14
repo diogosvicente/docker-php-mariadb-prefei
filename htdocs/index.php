@@ -2,74 +2,54 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Ambiente de Desenvolvimento - Docker</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            margin: 0;
-            padding: 40px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 300px;
-            transition: transform 0.2s;
-            text-align: left;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card h2 {
-            color: #007bff;
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        .card p {
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        .card a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .card a:hover {
-            text-decoration: underline;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #777;
-        }
-        code {
-            background: #eee;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-    </style>
+    <title>Ambiente de Desenvolvimento - Docker Prefei</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Ambiente de Desenvolvimento Docker</h1>
+        <h1>Ambiente de Desenvolvimento Docker Prefei</h1>
 
         <div class="card-container">
+            <!-- Versões do Ambiente -->
+            <div class="card">
+                <h2>Versões do Ambiente</h2>
+                <p><strong>PHP:</strong> 8.2 (FROM php:8.2-apache)</p>
+                <p><strong>MariaDB:</strong> 10.5 (mariadb:10.5)</p>
+
+                <h2>Estrutura de Pastas</h2>
+                <pre>
+docker-prefei-php/
+├── docker-compose.yml
+├── Dockerfile
+├── php/
+│   └── custom.ini
+├── htdocs/
+│   └── projeto1/
+└── db_data/
+                </pre>
+            </div>
+
+            <!-- Comandos Docker -->
+            <div class="card">
+                <h2>Comandos Docker</h2>
+                <p><strong>Subir o ambiente:</strong></p>
+                <p><code id="cmd-up">docker compose up -d</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-up')">Copiar</button></p>
+
+                <p><strong>Derrubar o ambiente:</strong></p>
+                <p><code id="cmd-down">docker compose down</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-down')">Copiar</button></p>
+
+                <p><strong>Ver status:</strong></p>
+                <p><code id="cmd-ps">docker compose ps</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-ps')">Copiar</button></p>
+
+                <p><strong>Reiniciar todos:</strong></p>
+                <p><code id="cmd-restart-all">docker compose restart</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-restart-all')">Copiar</button></p>
+            </div>
+
+            <!-- Diretório Principal -->
             <div class="card">
                 <h2>Diretório Principal</h2>
                 <p>Acesse sua raiz de projetos:</p>
@@ -77,6 +57,7 @@
                 <p>Arquivo atual: <code>htdocs/index.php</code></p>
             </div>
 
+            <!-- Projetos Individuais -->
             <div class="card">
                 <h2>Projetos Individuais</h2>
                 <p>Crie subpastas em <code>htdocs/</code>:</p>
@@ -84,6 +65,7 @@
                 <p><a href="http://localhost/projeto1" target="_blank">http://localhost/projeto1</a></p>
             </div>
 
+            <!-- phpMyAdmin -->
             <div class="card">
                 <h2>phpMyAdmin</h2>
                 <p>Gerencie o banco de dados:</p>
@@ -93,6 +75,7 @@
                    <strong>Host:</strong> <code>db</code></p>
             </div>
 
+            <!-- Alterar configurações PHP -->
             <div class="card">
                 <h2>Alterar configurações PHP</h2>
                 <p>Edite o arquivo:</p>
@@ -100,7 +83,27 @@
                 <p>Exemplo:</p>
                 <p><code>upload_max_filesize=64M</code><br><code>post_max_size=64M</code></p>
                 <p><em>Após alteração, reinicie o container com:</em></p>
-                <p><code>docker-compose restart</code></p>
+                <p><code id="cmd-restart-phpini">docker compose restart apache</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-restart-phpini')">Copiar</button></p>
+            </div>
+
+            <!-- Extensões PHP -->
+            <div class="card">
+                <h2>Extensões PHP</h2>
+                <p>Liste todas as extensões carregadas no PHP:</p>
+                <p><code id="cmd-php-ext">docker compose exec apache php -m</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-php-ext')">Copiar</button></p>
+                <p>Verifique a versão do PHP:</p>
+                <p><code id="cmd-php-ver">docker compose exec apache php -v</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-php-ver')">Copiar</button></p>
+            </div>
+
+            <!-- Versão do MariaDB -->
+            <div class="card">
+                <h2>Versão do MariaDB</h2>
+                <p>Verifique a versão do banco de dados MariaDB:</p>
+                <p><code id="cmd-mariadb-ver">docker compose exec db mysql --version</code>
+                   <button class="copy-btn" onclick="copyToClipboard('cmd-mariadb-ver')">Copiar</button></p>
             </div>
         </div>
 
@@ -108,5 +111,16 @@
             Desenvolvido com Docker - Ambiente Local Personalizado
         </div>
     </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                alert("Comando copiado: " + text);
+            }, function(err) {
+                alert("Falha ao copiar");
+            });
+        }
+    </script>
 </body>
 </html>

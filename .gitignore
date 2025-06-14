@@ -1,5 +1,14 @@
-# Ignorar tudo dentro de htdocs
+# Ignorar tudo dentro de htdocs, exceto o index.php e .gitkeep
 htdocs/*
-
-# Mas não ignorar o index.php
 !htdocs/index.php
+!htdocs/.gitkeep
+
+# Ignorar volumes de banco
+db_data/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de IDE
+.vscode/
+.idea/
