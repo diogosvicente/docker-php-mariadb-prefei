@@ -1,8 +1,8 @@
 FROM php:8.2-apache
 
-# Instalação de dependências do sistema (note libs MariaDB no lugar de libmysqlclient)
+# 1) Instalação de dependências e extensões PHP
 RUN apt-get update \
-  && apt-get install -y \
+  && apt-get install -y --no-install-recommends \
        libicu-dev \
        libzip-dev \
        libpng-dev \
@@ -16,15 +16,20 @@ RUN apt-get update \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install \
        intl \
-       pdo \
        pdo_mysql \
        mysqli \
        zip \
-       gd
+       gd \
+  && rm -rf /var/lib/apt/lists/*
 
-# Instala Composer globalmente
+# 2) Habilita mod_rewrite e permite .htaccess
+RUN a2enmod rewrite \
+  && sed -ri 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf \
+  && echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# 3) Instala Composer globalmente
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin --filename=composer
 
-# Define diretório de trabalho
+# 4) Define diretório de trabalho
 WORKDIR /var/www/html

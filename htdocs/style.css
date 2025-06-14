@@ -70,3 +70,7 @@ pre {
     border-radius: 4px;
     overflow-x: auto;
 }
+
+.card.full-width {
+  grid-column: 1 / -1;
+}
