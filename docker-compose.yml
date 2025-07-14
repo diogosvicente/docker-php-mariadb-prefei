@@ -1,7 +1,7 @@
 services:
 
   apache:
-    build: .
+    build: ./php
     container_name: apache
     ports:
       - "80:80"

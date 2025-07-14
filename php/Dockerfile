@@ -10,6 +10,7 @@ RUN apt-get update \
        libfreetype6-dev \
        libmariadb-dev \
        libmariadb-dev-compat \
+       libcurl4-openssl-dev \ 
        zip \
        unzip \
        curl \
@@ -20,6 +21,7 @@ RUN apt-get update \
        mysqli \
        zip \
        gd \
+       curl \ 
   && rm -rf /var/lib/apt/lists/*
 
 # 2) Habilita mod_rewrite e permite .htaccess
