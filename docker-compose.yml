@@ -12,13 +12,7 @@ services:
       - db
     # Override apenas o CMD (mantendo o ENTRYPOINT oficial docker-php-entrypoint):
     command: >
-      bash -lc "
-        chown -R www-data:www-data /var/www/html/e-prefeitura/writable &&
-        chmod -R 775 /var/www/html/e-prefeitura/writable &&
-        chown -R www-data:www-data /var/www/html/e-prefeitura/vendor/mpdf/mpdf/tmp &&
-        chmod -R 775 /var/www/html/e-prefeitura/vendor/mpdf/mpdf/tmp &&
-        exec docker-php-entrypoint apache2-foreground
-      "
+      bash -lc "exec docker-php-entrypoint apache2-foreground"
 
   db:
     image: mariadb:10.5
